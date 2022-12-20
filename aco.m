@@ -6,11 +6,11 @@ clear all;
 
 
 %% Parametry sterowania
-nrSekcji=0;     % z zakresu 0-4, inaczej siê posypie! nr 10 pokazowy
+nrSekcji=0;     
 
-feromon_na_mrowke=2;
-parowanie_feromonu=0.5;
-zerowy_poziom_fer=5;
+feromon_na_mrowke=6;
+parowanie_feromonu=0.6;
+zerowy_poziom_fer=11;
 
 liczba_cykli=100;     % okresla liczbe mrowek
 liczba_iteracji=50; % okrsla liczbe iteracji
