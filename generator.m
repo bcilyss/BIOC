@@ -1,3 +1,4 @@
+function [] = generator()
 clc;
 clear all;
 
@@ -5,12 +6,12 @@ clear all;
 %% Parametry sterowania
 nrSekcji=0;     
 
-feromon_na_mrowke=50;
-parowanie_feromonu=0.2;
-zerowy_poziom_fer=8;
+feromon_na_mrowke=19;
+parowanie_feromonu=0.4;
+zerowy_poziom_fer=11;
 
 liczba_cykli=200;    
-liczba_iteracji=100; 
+liczba_iteracji=75; 
 
 %% 1. Generowanie miast 'miasta'
 figure;
@@ -185,3 +186,4 @@ xy=[y' ,x'];
 plot(x,y,'b-')
 
 p;
+end

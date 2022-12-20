@@ -1,3 +1,6 @@
+%  ACO - Ant Colony Optimization
+% Skrypt rozwiazuje problem komiwojazera
+% dla zadanej tablicy miast
 clc;
 clear all;
 
@@ -5,20 +8,28 @@ clear all;
 %% Parametry sterowania
 nrSekcji=0;     
 
-feromon_na_mrowke=50;
-parowanie_feromonu=0.2;
-zerowy_poziom_fer=8;
+feromon_na_mrowke=19;
+parowanie_feromonu=0.;
+zerowy_poziom_fer=13;
 
-liczba_cykli=200;    
-liczba_iteracji=100; 
+liczba_cykli=250;     % okresla liczbe mrowek
+liczba_iteracji=75; % okrsla liczbe iteracji
 
 %% 1. Generowanie miast 'miasta'
 figure;
 img = imread('zdjecie.png');
 imshow(img)
+%  [x,y] = ginput(17)
+%  TAB = [x,y];
+%%indeksy = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17];
+%%Tabela=[indeksy, TAB];
 
+% save('TAB')
+% hold on
+% plot(x,y,'bo')
 hold on
 img=StworzMape(nrSekcji);
+%%img=RysujPunkty(punkty);
 img(:,2:3)=img(:,2:3)*1;
 miasta=img;
 scatter(miasta(:,2,:), miasta(:,3,:));
@@ -59,22 +70,24 @@ size_p=size(p);
 
 for cykl=1:l
 size_ant=size(ant);
-dostepne_polaczenia(:,2)=dostepne_miasta(:,1); 
-dostepne_polaczenia(:,1)=ant(size_ant(1,1),1); 
+dostepne_polaczenia(:,2)=dostepne_miasta(:,1); % miasta dostepne ze ostatniego
+dostepne_polaczenia(:,1)=ant(size_ant(1,1),1); % ostatnie odwiedzone miasto
 
 size_dostepne_polaczenia=size(dostepne_polaczenia);
 
-for i=1:size_dostepne_polaczenia(1,1) 
+for i=1:size_dostepne_polaczenia(1,1) % generowanie dostepnych polaczen
     for k=1:size_p(1,1)
         if (((dostepne_polaczenia(i,1)==p(k,2)) && (dostepne_polaczenia(i,2)==p(k,3))) || ((dostepne_polaczenia(i,2)==p(k,2)) && (dostepne_polaczenia(i,1)==p(k,3))))
             dostepne_polaczenia(i,4)=p(k,4);
-            dostepne_polaczenia(i,3)=p(k,1); 
+            dostepne_polaczenia(i,3)=p(k,1); % indeks polaczenia
    
         end
     end
 end
 
+%okreslanie progow
 suma_feromonu_dostepne_polaczenia=sum(dostepne_polaczenia(:,4));
+%normalizacja
 dostepne_polaczenia(:,6)=0;
 for i=1:size_dostepne_polaczenia(1,1)
     dostepne_polaczenia(i,5)=dostepne_polaczenia(i,4)/suma_feromonu_dostepne_polaczenia;
@@ -84,6 +97,7 @@ prog_dol=[0 ; dostepne_polaczenia(:,6)];
 size_prog_dol=size(prog_dol);
 prog_dol(size_prog_dol(1,1))=[];
 dostepne_polaczenia(:,5)=prog_dol;
+%losowanie sciezki
 los=rand();
 for i=1:size_dostepne_polaczenia(1,1)
     if (dostepne_polaczenia(i,5)<los) && (los<=dostepne_polaczenia(i,6))
