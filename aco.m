@@ -1,28 +1,13 @@
-% ACO - Ant Colony Optimization
+%  ACO - Ant Colony Optimization
 % Skrypt rozwiazuje problem komiwojazera
 % dla zadanej tablicy miast
+clc;
+clear all;
 
 
-clear all
 %% Parametry sterowania
 nrSekcji=0;     % z zakresu 0-4, inaczej siê posypie! nr 10 pokazowy
-punkty = [  31.0000  124.5000;
-    128.0000   67.5000;
-   266.0000   47.5000;
-   382.0000  105.5000;
-   532.0000  164.5000;
-   12.0000  257.5000;
-  227.0000  173.5000;
-  160.0000  237.5000;
-  73.0000  283.5000
-  167.0000  366.5000;
-  231.0000  404.5000;
-  316.0000  309.5000;
-  396.0000  380.5000;
-  505.0000  347.5000;
-  490.0000  461.5000;
-  363.0000  479.5000;
-  289.0000  443.5000];
+
 feromon_na_mrowke=2;
 parowanie_feromonu=0.5;
 zerowy_poziom_fer=5;
@@ -34,11 +19,14 @@ liczba_iteracji=50; % okrsla liczbe iteracji
 figure;
 img = imread('zdjecie.png');
 imshow(img)
-[x,y] = ginput(17)
-TAB = [x,y];
-save('TAB')
-hold on
-plot(x,y,'rx')
+%  [x,y] = ginput(17)
+%  TAB = [x,y];
+%%indeksy = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17];
+%%Tabela=[indeksy, TAB];
+
+% save('TAB')
+% hold on
+% plot(x,y,'bo')
 hold on
 img=StworzMape(nrSekcji);
 %%img=RysujPunkty(punkty);
@@ -198,4 +186,16 @@ for iii=1:size_p(1,1)
 end
     
 end
+p
+x=1:17;
+y=1:17;
+for a=1:17
+     i = best_ant(a);
+     disp(i)
+     x(a)=img(i,2);
+     y(a)=img(i,3);
+end
+xy=[y' ,x'];
+plot(x,y,'b-')
+
 p;
