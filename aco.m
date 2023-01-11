@@ -4,7 +4,6 @@ clear all;
 
 %% Parametry sterowania
 nrSekcji=0;     
-
 feromon_na_mrowke=50;
 parowanie_feromonu=0.2;
 zerowy_poziom_fer=8;
@@ -13,12 +12,15 @@ liczba_cykli=200;
 liczba_iteracji=100; 
 
 %% 1. Generowanie miast 'miasta'
+ile=input("podaj ile miast")
 figure;
 img = imread('zdjecie.png');
 imshow(img)
-
 hold on
-img=StworzMape(nrSekcji);
+[x,y] = ginput(ile)
+a=1:5;
+a=a';
+img=[a,x,y];
 img(:,2:3)=img(:,2:3)*1;
 miasta=img;
 scatter(miasta(:,2,:), miasta(:,3,:));
@@ -45,7 +47,7 @@ p=GenerujTablicePolaczen(l, n, zerowy_poziom_fer, miasta);
 
 
 %% 3. Mrowka - losowanie miast
-mat_ant=zeros(liczba_cykli*liczba_iteracji,17);
+mat_ant=zeros(liczba_cykli*liczba_iteracji,ile);
 mat_droga=zeros(liczba_cykli*liczba_iteracji,1);
 
 
@@ -173,9 +175,9 @@ end
     
 end
 p
-x=1:17;
-y=1:17;
-for a=1:17
+x=1:ile;
+y=1:ile;
+for a=1:ile
      i = best_ant(a);
      disp(i)
      x(a)=img(i,2);
